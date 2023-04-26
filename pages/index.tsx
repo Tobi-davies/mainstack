@@ -151,7 +151,7 @@ export default function Home() {
             className="ml-auto"
             src="/more_horiz.svg"
             alt="sidebar icon"
-            width={11}
+            width={13}
             height={2}
 
           />

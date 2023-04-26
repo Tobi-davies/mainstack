@@ -1,42 +1,18 @@
 import React from 'react';
+import Image from "next/image";
+import { Doughnut } from 'react-chartjs-2';
 import { GoPrimitiveDot } from 'react-icons/go';
 import {
     Chart as ChartJS, ArcElement
 } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
-import ReactCountryFlag from "react-country-flag"
 import LoadingSpinner from './loading-spinner';
-
+import { FcGoogle } from "react-icons/fc";
+import Twitter from '../public/twitter.svg'
+import LinkedIn from '../public/linkedIn.svg'
+import Facebook from '../public/facebook.svg'
+import Instagram from '../public/Instagram.svg'
 
 ChartJS.register(ArcElement);
-
-// export const data = {
-// //   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-//   labels: [''],
-//   datasets: [
-//     {
-//     //   label: '# of Votes',
-//       data: [12, 19, 3, 5, 2, 3],
-//       backgroundColor: [
-//         'rgba(255, 99, 132, 1)',
-//         'rgba(54, 162, 235, 1)',
-//         'rgba(255, 206, 86, 1)',
-//         'rgba(75, 192, 192, 1)',
-//         'rgba(153, 102, 255, 1)',
-//         'rgba(255, 159, 64, 1)',
-//       ],
-//       borderColor: [
-//         'rgba(255, 99, 132, 1)',
-//         'rgba(54, 162, 235, 1)',
-//         'rgba(255, 206, 86, 1)',
-//         'rgba(75, 192, 192, 1)',
-//         'rgba(153, 102, 255, 1)',
-//         'rgba(255, 159, 64, 1)',
-//       ],
-//       borderWidth: 1,
-//     },
-//   ],
-// };
 
 const ReferralSources = ({ items, isLoading, isSuccess }: any) => {
     console.log(items);
@@ -46,7 +22,6 @@ const ReferralSources = ({ items, isLoading, isSuccess }: any) => {
         '#F09468',
         '#0FB77A',
         '#FAB70A',]
-
 
     const renderView = () => {
         if (isLoading) return (
@@ -68,14 +43,13 @@ const ReferralSources = ({ items, isLoading, isSuccess }: any) => {
                 ],
             };
 
-
             return (
                 <div className='flex flex-col gap-4'>
                     <div className="flex justify-between items-center">
                         <h4 className='text-lg text-[#131316] font-bold'>Top Referral source</h4> <a>View full reports </a>
 
                     </div>
-                    <div className='flex justify-between items-center pr-8'
+                    <div className='flex justify-between items-center pr-4'
                     >
                         <div>
                             <ul className='flex flex-col gap-3'>
@@ -85,7 +59,30 @@ const ReferralSources = ({ items, isLoading, isSuccess }: any) => {
                                     return (
                                         <li className='flex gap-2 items-center' key={i}>
 
+                                            {item.source === 'instagram' ?
 
+                                                <Image
+                                                    className=""
+                                                    src={Instagram}
+                                                    alt="IG Logo"
+                                                    width={18}
+                                                    height={18}
+
+                                                /> : item.source === 'facebook' ? <Image
+                                                    className=""
+                                                    src={Facebook}
+                                                    alt="facebook Logo"
+                                                    width={17}
+                                                    height={17}
+
+                                                /> : item.source === 'linkedin' ? <Image
+                                                    className=""
+                                                    src={LinkedIn}
+                                                    alt="linkedIn Logo"
+                                                    width={17}
+                                                    height={17}
+
+                                                /> : item.source === "google" ? <FcGoogle /> : ''}
 
 
                                             <span className='text-base text-[#131316] font-[Sohne] capitalize'>{item?.source} </span>
@@ -112,7 +109,8 @@ const ReferralSources = ({ items, isLoading, isSuccess }: any) => {
     }
     return (
         <>
-            {renderView()}</>
+            {renderView()}
+        </>
     )
 }
 
