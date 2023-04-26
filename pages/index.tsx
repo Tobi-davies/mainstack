@@ -70,9 +70,8 @@ export default function Home() {
           {sidebar_content.top.map((item, i) => {
             return (
               <li
-                className={`flex gap-3 pl-10 ${
-                  item.active ? "border-l-4 border-[#FF5403]" : ""
-                }`}
+                className={`flex gap-3 pl-10 cursor-pointer ${item.active ? "border-l-4 border-[#FF5403]" : ""
+                  }`}
                 key={i}
               >
                 {/* <span></span> */}
@@ -84,9 +83,8 @@ export default function Home() {
                   height={15}
                 />
                 <span
-                  className={`text-base text-[#4D5760] ${
-                    item.active ? "text-[#FF5403]" : ""
-                  }`}
+                  className={`text-base text-[#4D5760] ${item.active ? "text-[#FF5403]" : ""
+                    }`}
                 >
                   {item.label}
                 </span>
@@ -95,13 +93,13 @@ export default function Home() {
           })}
         </ul>
         <div className="mb-6 pl-10">
-          <span className="text-xs text-[#4D5760] mb-4 block">
+          <span className="text-xs font-[Sohne] text-[#4D5760] mb-4 block">
             {sidebar_content.middle.title}
           </span>
           <ul className="flex flex-col gap-4">
             {sidebar_content.middle.content.map((item, i) => {
               return (
-                <li className="flex gap-3" key={i}>
+                <li className="flex gap-3 cursor-pointer" key={i}>
                   {/* <span></span> */}
                   <Image
                     className=""
@@ -117,13 +115,13 @@ export default function Home() {
           </ul>
         </div>
         <div className="pl-10">
-          <span className="text-xs text-[#4D5760] mb-4 block">
+          <span className="text-xs font-[Sohne] text-[#4D5760] mb-4 block">
             {sidebar_content.bottom.title}
           </span>
           <ul className="flex flex-col gap-4">
             {sidebar_content.bottom.content.map((item, i) => {
               return (
-                <li className="flex gap-3" key={i}>
+                <li className="flex gap-3 cursor-pointer" key={i}>
                   {/* <span></span> */}
                   <Image
                     className=""
@@ -138,7 +136,7 @@ export default function Home() {
             })}
           </ul>
         </div>
-        <div className="flex items-center pl-9 pr-4 mt-auto">
+        <div className="flex items-center pl-9 pr-4 mt-auto cursor-pointer">
           <Image
             className=""
             src="/blessing-daniels.svg"
@@ -147,7 +145,7 @@ export default function Home() {
             height={32}
           />
 
-          <span className="ml-3">Blessing Daniels</span>
+          <span className={`ml-3 font-["Sohne_kraftig"]`}>Blessing Daniels</span>
 
           <Image
             className="ml-auto"
@@ -155,11 +153,12 @@ export default function Home() {
             alt="sidebar icon"
             width={11}
             height={2}
+
           />
         </div>
       </div>
       <div
-        style={{ width: "calc(100% - 256px)", border: "1px solid red" }}
+        style={{ width: "calc(100% - 300px)", overflow: 'hidden' }}
         className="ml-[300px] min-h-screen"
       >
         <Dashboard />

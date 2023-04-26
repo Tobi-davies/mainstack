@@ -25,12 +25,64 @@
     )
     rgb(var(--background-start-rgb));
 } */
+
+@font-face {
+  font-family: "Sohne";
+  src: local("Sohne"),
+    url("../assets/fonts/test-soehne-buch.woff2") format("woff2");
+  /* font-weight: 400; */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Sohne Halbefett";
+  src: local("Sohne Halbefett"),
+    url("../assets/fonts/test-soehne-halbfett.woff2") format("woff2");
+  /* font-weight: 400; */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Sohne kraftig";
+  src: local("Sohne kraftig"),
+    url("../assets/fonts/test-soehne-kraftig.woff2") format("woff2");
+  /* font-weight: 400; */
+  font-style: normal;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  /* font-family: "Sohne"; */
 }
 
 body::-webkit-scrollbar {
   display: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Sohne Halbefett";
+}
+
+li,
+a {
+  font-family: "Sohne kraftig";
+}
+
+a {
+  color: #ff5403;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.chart canvas {
+  /* border: 3px solid green; */
+  font-family: "Sohne" !important;
+  max-height: 350px;
 }

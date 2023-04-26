@@ -1,8 +1,22 @@
 import React from "react";
 import ViewChart from "../chart";
 import DoughnutChart from "../doughnut";
+import useViews from "@/hooks/useFetch";
+import ReferralSources from "../referral-sources";
 
 const piedata = {
+  views: {
+    "2022-07-31": 1,
+    "2022-08-01": 3,
+    "2022-08-02": 3,
+    "2022-08-03": 7,
+    "2022-08-04": 8,
+    "2022-08-05": 5,
+    "2022-08-06": 20,
+    "2022-08-07": 50,
+    "2022-08-08": 100,
+    "2022-08-09": 2
+  },
   top_locations: [
     {
       country: "Nigeria",
@@ -55,6 +69,11 @@ const piedata = {
 };
 
 const Dashboard = () => {
+  const { isLoading, data, isSuccess } = useViews()
+
+  console.log(data);
+
+
   const TABS = [
     "1 Day",
     "3 Days",
@@ -65,45 +84,44 @@ const Dashboard = () => {
   ];
   return (
     <div className="px-10 w-[100%] pb-10">
-      <div className="py-2 mb-6 text-xl">Dashboard</div>
+      <div className={`pt-3 pb-2 mb-6 text-xl font-["Sohne_Halbefett"]`}>Dashboard</div>
       <div className="flex justify-between items-center mb-4">
         <div className="flex flex-col gap-2">
-          <span className="text-2xl">Good morning, Blessing ⛅️</span>
-          <span className="text-sm">Check out your dashboard summary.</span>
+          <h1 className="text-2xl">Good morning, Blessing ⛅️</h1>
+          <p className="text-sm font-[Sohne]">Check out your dashboard summary.</p>
         </div>
-        <a href="">View analytics</a>
+        <a href="#" className="text-sm">View analytics</a>
       </div>
 
-      <div className="flex gap-2">
+      <ul className="flex gap-2">
         {TABS.map((item, i) => {
           return (
-            <span
+            <li
               key={i}
-              className={`py-1.5 px-3 rounded-3xl border-2 text-sm ${
-                item === "All Time"
-                  ? " border-[#FF5403] bg-[#FFDDCD] text-[#FF5403]"
-                  : "border-[#EFF1F6]"
-              }`}
+              className={`py-1.5 px-3 rounded-3xl cursor-pointer border-2 text-sm ${item === "All Time"
+                ? " border-[#FF5403] bg-[#FFDDCD] text-[#FF5403]"
+                : "border-[#EFF1F6]"
+                }`}
             >
               {item}
-            </span>
+            </li>
           );
         })}
+      </ul>
+
+
+      <div className="chart">
+        <ViewChart chartData={data?.graph_data?.views} isLoading={isLoading} isSuccess={isSuccess} />
       </div>
 
-      <ViewChart />
 
       <div className="grid grid-cols-2 gap-3 mt-5">
-        <div className="border-2 border-[#EFF1F6] rounded-lg p-4 flex flex-col">
-          <div className="flex justify-between items-center">
-            <span className='text-lg text-[#131316] font-bold'>Top Locations</span> <a>View full reports </a>
-            
-          </div>
-          <div>
-              <DoughnutChart items={piedata.top_locations} />
-            </div>
+        <div className="border-2 border-[#EFF1F6] rounded-lg p-4">
+          <DoughnutChart isSuccess={isSuccess} items={data?.top_locations
+          } isLoading={isLoading} />
         </div>
-        <div className="border-2 border-[#EFF1F6] rounded-lg p-4"> B </div>
+        <div className="border-2 border-[#EFF1F6] rounded-lg p-4">  <ReferralSources isSuccess={isSuccess} items={data?.top_sources
+        } isLoading={isLoading} /> </div>
       </div>
     </div>
   );
