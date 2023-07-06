@@ -1,61 +1,149 @@
 import Dashboard from "@/components/dashboard/dashboard";
 import Image from "next/image";
+import styled from "@emotion/styled";
+import React from 'react'
 
-export default function Home() {
-  const sidebar_content = {
-    top: [
+
+
+const sidebar_content = {
+  top: [
+    {
+      label: "Dashboard",
+      image: "/dashboard.svg",
+      active: true,
+    },
+    {
+      label: "Item 1",
+      image: "/edit.svg",
+    },
+    {
+      label: "Item 2",
+      image: "/group.svg",
+    },
+    {
+      label: "Item 3",
+      image: "/hourglass_empty.svg",
+    },
+  ],
+  middle: {
+    title: "OTHERS 1",
+    content: [
       {
-        label: "Dashboard",
-        image: "/dashboard.svg",
-        active: true,
+        label: "Item 4",
+        image: "/add_a_photo.svg",
       },
       {
-        label: "Item 1",
-        image: "/edit.svg",
-      },
-      {
-        label: "Item 2",
-        image: "/group.svg",
-      },
-      {
-        label: "Item 3",
-        image: "/hourglass_empty.svg",
+        label: "Item 5",
+        image: "/delete.svg",
       },
     ],
-    middle: {
-      title: "OTHERS 1",
-      content: [
-        {
-          label: "Item 4",
-          image: "/add_a_photo.svg",
-        },
-        {
-          label: "Item 5",
-          image: "/delete.svg",
-        },
-      ],
-    },
-    bottom: {
-      title: "OTHERS 2",
-      content: [
-        {
-          label: "Item 6",
-          image: "/subscriptions.svg",
-        },
-        {
-          label: "Item 7",
-          image: "/file_present.svg",
-        },
-        {
-          label: "Item 8",
-          image: "/alarm.svg",
-        },
-      ],
-    },
+  },
+  bottom: {
+    title: "OTHERS 2",
+    content: [
+      {
+        label: "Item 6",
+        image: "/subscriptions.svg",
+      },
+      {
+        label: "Item 7",
+        image: "/file_present.svg",
+      },
+      {
+        label: "Item 8",
+        image: "/alarm.svg",
+      },
+    ],
+  },
+};
+
+const MainContent = styled.div`
+  width: 100%;
+overflow: hidden;
+min-height: 100vh;
+
+@media screen and (min-width: 768px) {
+    width: calc(100% - 250px);
+    margin-left: 250px;
+  }
+
+  @media screen and (min-width: 992px) {
+    width: calc(100% - 300px);
+    margin-left: 300px;
+
+  }
+  
+`;
+
+const SideBar = styled.div<{ isMobileNav?: boolean; }>`
+    transform: translateX(0);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    // overflow-y: auto;
+    transition: transform 1s ease;
+    transform: translateX(${({ isMobileNav }) => (isMobileNav ? "0" : "-100vw")});
+    z-index: 4;
+    background-color: #fff;
+    padding: 20px 0;
+    border-right: 2px solid #EFF1F6;
+
+
+@media screen and (min-width: 768px) {
+    width: 250px;
+    transform: unset;
+    // border: 1px solid red;
+    height: 100vh;
+
+  }
+
+@media screen and (min-width: 992px) {
+    width: 300px;
+    postion: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    padding: 16px 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+`
+
+export default function Home() {
+  const [isMobileNav, showMobileNav] = React.useState(false)
+
+
+  const navRef = React.useRef<HTMLDivElement>(null);
+
+  //nav action when clicked outside
+  const useOnOutsideClick = (navRef: any, navAction: any) => {
+    React.useEffect(() => {
+      const navEvent = (e: Event) => {
+        if (navRef.current.contains(e.target) || !navRef.current) {
+          return;
+        }
+
+        navAction(e);
+      };
+
+      document.addEventListener("mousedown", navEvent);
+      document.addEventListener("touchstart", navEvent);
+
+      return () => {
+        document.removeEventListener("mousedown", navEvent);
+        document.removeEventListener("touchstart", navEvent);
+      };
+    }, [navAction, navRef]);
   };
+
+  useOnOutsideClick(navRef, () => showMobileNav(false));
+
   return (
     <div className="flex relative">
-      <div className="w-[300px] fixed top-0 left-0 h-screen border-r-2 border-[#EFF1F6] pt-8 pb-8 flex flex-col">
+      <SideBar ref={navRef} isMobileNav={isMobileNav}>
         <div className="mb-7 pl-8">
           <Image
             className=""
@@ -70,11 +158,10 @@ export default function Home() {
           {sidebar_content.top.map((item, i) => {
             return (
               <li
-                className={`flex gap-3 pl-10 cursor-pointer ${item.active ? "border-l-4 border-[#FF5403]" : ""
+                className={`flex gap-3 pl-10 cursor-pointer  ${item.active ? "border-l-4 border-[#FF5403]" : ""
                   }`}
                 key={i}
               >
-                {/* <span></span> */}
                 <Image
                   className=""
                   src={item.image}
@@ -83,7 +170,7 @@ export default function Home() {
                   height={15}
                 />
                 <span
-                  className={`text-base text-[#4D5760] ${item.active ? "text-[#FF5403]" : ""
+                  className={`text-base text-[#4D5760] hover:text-[#FF5403] ${item.active ? "text-[#FF5403]" : ""
                     }`}
                 >
                   {item.label}
@@ -108,7 +195,7 @@ export default function Home() {
                     width={15}
                     height={15}
                   />
-                  <span className="text-base text-[#4D5760]">{item.label}</span>
+                  <span className="text-base text-[#4D5760] hover:text-[#FF5403]">{item.label}</span>
                 </li>
               );
             })}
@@ -130,7 +217,7 @@ export default function Home() {
                     width={15}
                     height={15}
                   />
-                  <span className="text-base text-[#4D5760]">{item.label}</span>
+                  <span className="text-base text-[#4D5760] hover:text-[#FF5403]">{item.label}</span>
                 </li>
               );
             })}
@@ -156,13 +243,12 @@ export default function Home() {
 
           />
         </div>
-      </div>
-      <div
-        style={{ width: "calc(100% - 300px)", overflow: 'hidden' }}
-        className="ml-[300px] min-h-screen"
+      </SideBar>
+      <MainContent
+
       >
-        <Dashboard />
-      </div>
+        <Dashboard showMobileNav={showMobileNav} />
+      </MainContent>
     </div>
   );
 }

@@ -75,9 +75,7 @@ const Locations = ({ items, isLoading, isSuccess }: any) => {
               </ul>
             </div>
 
-            <div style={{
-              height: '160px',
-            }}>
+            <div className='h-[100px] md:h-[160px]'>
               <Doughnut data={data} />
             </div>
           </div>
