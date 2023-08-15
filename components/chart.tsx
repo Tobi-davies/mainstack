@@ -21,8 +21,12 @@ ChartJS.register(
   Filler,
 );
 
+ChartJS.defaults.font.family = "Sohne";
+
+
 export const options = {
   responsive: true,
+  maintainAspectRatio: false,
   //   plugins: {
   //     legend: {
   //       position: "top" as const,
@@ -33,6 +37,36 @@ export const options = {
   //     },
   //   },
   // maintainAspectRatio: false,
+  scales: {
+    y: {
+      beginAtZero: true,
+      max: 100,
+      ticks: {
+        padding: 6,
+        color: '#000000',
+        stepSize: 20,
+        // callback: ((value: any, index: any, ticks: any) => {
+        //   return `${value > 0 ? value + '%' : 0}`
+        // }),
+
+      },
+      border: {
+        // display: false,
+      },
+      grid: {
+        drawTicks: false,
+      },
+    },
+
+    x: {
+      grid: {
+        display: false,
+      },
+      ticks: {
+        color: '#000000',
+      },
+    }
+  }
 };
 
 const ViewChart = ({ chartData, isLoading, isSuccess }: any) => {
@@ -61,7 +95,9 @@ const ViewChart = ({ chartData, isLoading, isSuccess }: any) => {
             data: Object.values(chartData),
             borderColor: "#FF5403",
             backgroundColor: "rgba(255, 84, 3, 0.2)",
-            tension: 0.1
+            tension: 0.3,
+            borderWidth: 2,
+            pointRadius: 0.02,
           },
         ],
       }
@@ -72,7 +108,9 @@ const ViewChart = ({ chartData, isLoading, isSuccess }: any) => {
           <div className="flex items-center justify-between"><h3 className="text-lg">Page Views</h3><MdOutlineInfo color="#31373D" /></div>
           <p className="font-[Sohne] text-sm mb-3">All time</p>
           <h3 className="text-5xl mb-5">500</h3>
-          <Line options={options} data={chartsD} />
+          <div className="h-[300px]">
+            <Line options={options} data={chartsD} />
+          </div>
         </>
       )
     }
