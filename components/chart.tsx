@@ -118,7 +118,7 @@ const ViewChart = ({ chartData, isLoading, isSuccess }: any) => {
 
   return (
     <div
-      className="border-2 border-[#EFF1F6] rounded-2xl mt-4 px-6 pt-5 pb-4">
+      className="border-2 border-[#EFF1F6] rounded-2xl mt-4 px-4 md:px-6 pt-5 pb-4">
       {renderView()}
     </div>
   )
