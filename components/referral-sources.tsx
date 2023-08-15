@@ -43,6 +43,11 @@ const ReferralSources = ({ items, isLoading, isSuccess }: any) => {
                 ],
             };
 
+            const options = {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+
             return (
                 <div className='flex flex-col gap-4'>
                     <div className="flex justify-between items-center">
@@ -95,8 +100,8 @@ const ReferralSources = ({ items, isLoading, isSuccess }: any) => {
                             </ul>
                         </div>
 
-                        <div  className='h-[100px] md:h-[160px]'>
-                            <Doughnut data={data} />
+                        <div className='h-[160px] w-[160px]'>
+                            <Doughnut data={data} options={options} />
                         </div>
                     </div>
                 </div>
