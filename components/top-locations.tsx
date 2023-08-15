@@ -81,7 +81,7 @@ const Locations = ({ items, isLoading, isSuccess }: any) => {
               </ul>
             </div>
 
-            <div className='h-[160px] w-[160px]'>
+            <div className='h-[120px] w-[120px] md:h-[160px] md:w-[160px]'>
               <Doughnut data={data} options={options} />
             </div>
           </div>
